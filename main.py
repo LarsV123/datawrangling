@@ -3,6 +3,7 @@ from inserter import read_all_users
 from utils import linebreak
 import argparse
 from time import time
+import queries
 
 
 def execute_script(db: Connector, filename: str):
@@ -46,9 +47,14 @@ def main(args):
         print(f"Inserting the first {args.fill} users from the dataset...")
         read_all_users(db, args.fill)
     if args.query:
-        print(f"{args.query=}")
+        linebreak()
+        queries.run_query(db, args.query)
     if args.queries:
-        print(f"{args.queries=}")
+        first = args.queries[0]
+        last = args.queries[1]
+        for i in range(first, last + 1):
+            linebreak()
+            queries.run_query(db, i)
 
     linebreak()
     end = time()
