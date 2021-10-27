@@ -1,10 +1,10 @@
 from connector import Connector
 from utils import linebreak
 import argparse
+from time import time
 
 
-def execute_script(filename):
-    db = Connector()
+def execute_script(db: Connector, filename: str):
     file = open(filename, "r")
 
     # Read lines and strip line breaks
@@ -15,10 +15,7 @@ def execute_script(filename):
     file.close()
 
     # Execute every command from the input file
-    linebreak()
-    print("Executing command(s):")
     for command in sql:
-        print(command)
         # This will skip and report errors
         try:
             db.cursor.execute(command)
@@ -26,19 +23,36 @@ def execute_script(filename):
         except Exception as e:
             print("Command skipped: ", command)
             print("Error:", e)
-            break
-    db.close()
 
 
 def main(args):
+    linebreak()
+    db = Connector()
+    start = time()
+
     if args.init:
-        execute_script("create_tables.sql")
+        linebreak()
+        print("Dropping and then creating all tables...")
+        execute_script(db, "create_tables.sql")
+        print("Successfully created tables")
     if args.index:
-        execute_script("create_indexes.sql")
+        linebreak()
+        print("Creating all relevant indexes...")
+        execute_script(db, "create_indexes.sql")
+        print("Successfully created indexes")
+    if args.fill:
+        linebreak()
+        print(f"Inserting the first {args.fill} users from the dataset...")
     if args.query:
         print(f"{args.query=}")
     if args.queries:
         print(f"{args.queries=}")
+
+    linebreak()
+    end = time()
+    elapsed = round(end - start, 2)
+    print(f"Total time elapsed: {elapsed} seconds")
+    db.close()
 
 
 if __name__ == "__main__":
@@ -62,6 +76,7 @@ if __name__ == "__main__":
         "--fill",
         choices=range(1, 182),
         metavar="[1-182]",
+        type=int,
         help="Fill the database with sanitized data for up to the specified number of users.",
     )
     parser.add_argument(

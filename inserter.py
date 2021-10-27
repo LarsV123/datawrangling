@@ -3,7 +3,6 @@ import re
 from dotenv import load_dotenv, find_dotenv
 from tqdm import tqdm
 from connector import Connector
-import time
 from psycopg2.extras import execute_batch
 
 load_dotenv(find_dotenv())

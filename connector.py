@@ -26,11 +26,9 @@ class Connector:
         # Check connection
         self.cursor.execute("SELECT version()")
         db_version = self.cursor.fetchone()
-        linebreak()
         print(f"Connected to: {db_version[0]}")
 
     def close(self):
         self.cursor.close()
         self.connection.close()
-        linebreak()
         print("Connection to database closed")
