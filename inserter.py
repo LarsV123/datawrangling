@@ -8,20 +8,19 @@ from psycopg2.extras import execute_batch
 load_dotenv(find_dotenv())
 
 
-def read_all_users(max: int):
+def read_all_users(db: Connector, max_users: int):
     """
     Read all users, or up to a specified max number of users (for testing).
     All user data will be inserted into the database.
     """
-    # Set up database connection
-    db = Connector()
-
     folder = os.environ.get("DATASET_PATH")
     subfolders = os.listdir(folder)
     folder_count = len(subfolders)
-    progress_bar = tqdm(total=folder_count)
+    if max_users > folder_count:
+        max_users = folder_count
+    progress_bar = tqdm(total=max_users)
 
-    # Clear all related data before inserting
+    tqdm.write("Truncating tables before starting insert stage")
     query = "TRUNCATE TABLE users CASCADE"
     db.cursor.execute(query)
     db.connection.commit()
@@ -31,7 +30,7 @@ def read_all_users(max: int):
         read_user(db, folder, subfolder)
         progress_bar.update(1)
         users += 1
-        if users >= max:
+        if users >= max_users:
             break
 
 

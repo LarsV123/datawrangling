@@ -1,4 +1,5 @@
 from connector import Connector
+from inserter import read_all_users
 from utils import linebreak
 import argparse
 from time import time
@@ -43,6 +44,7 @@ def main(args):
     if args.fill:
         linebreak()
         print(f"Inserting the first {args.fill} users from the dataset...")
+        read_all_users(db, args.fill)
     if args.query:
         print(f"{args.query=}")
     if args.queries:
