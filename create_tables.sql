@@ -1,6 +1,6 @@
-DROP TABLE trackpoints;
-DROP TABLE activities;
-DROP TABLE users;
+DROP TABLE IF EXISTS trackpoints;
+DROP TABLE IF EXISTS activities;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users (
   id VARCHAR(3) PRIMARY KEY,
