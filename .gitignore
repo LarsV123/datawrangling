@@ -1,0 +1,5 @@
+venv
+Data
+Data_sanitized
+.env
+__pycache__
