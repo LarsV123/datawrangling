@@ -1,8 +1,8 @@
 from connector import Connector
 from inserter import read_all_users
 from utils import linebreak
-import argparse
 from time import time
+import argparse
 import queries
 
 
@@ -46,12 +46,13 @@ def main(args):
         linebreak()
         print(f"Inserting the first {args.fill} users from the dataset...")
         read_all_users(db, args.fill)
-    if args.query:
+    if args.query is not None:
         linebreak()
         queries.run_query(db, args.query)
-    if args.queries:
+    if args.queries is not None:
         first = args.queries[0]
         last = args.queries[1]
+        print(f"Running queries {first} to {last}")
         for i in range(first, last + 1):
             linebreak()
             queries.run_query(db, i)

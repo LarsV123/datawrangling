@@ -3,3 +3,4 @@ Data
 Data_sanitized
 .env
 __pycache__
+profiling.prof
