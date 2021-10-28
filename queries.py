@@ -495,4 +495,3 @@ def task12(db: Connector):
 if __name__ == "__main__":
     print("This should only be called directly when debugging")
     db = Connector()
-    task6(db)
