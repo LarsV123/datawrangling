@@ -10,7 +10,14 @@ My goals for the project were:
 - Query the database to solve specific tasks
 - Do all of the above with clean code, reproducible steps and a command-line utility (CLI)
 
-## Virtual environment
+## Setup
+
+Below are the steps required to run this project. Prequisites:
+
+- Python (v3.9.6 used during testing)
+- Docker
+
+### Virtual environment
 
 Using a virtual environment (venv) is recommended, but not necessary:
 
@@ -18,18 +25,22 @@ Using a virtual environment (venv) is recommended, but not necessary:
 2. Activate venv in IDE. Run `pip list` to check that you are in the correct venv, it should only have _pip_ and _setuptools_ installed by default.
 3. `pip install -r requirements.txt`
 
-## Setup project
+### Dataset
 
-1. Make a copy of the `.env-template` file and rename it `.env`
-   - Supply it with credentials. These will be used both when setting up the
-     database and when accessing it.
 1. Get a copy of the raw dataset:
 
    - Download data from https://www.microsoft.com/en-us/research/publication/geolife-gps-trajectory-dataset-user-guide/
    - Place the Data folder in the project root folder, or point the environment variable to its location
 
-1. Extract `dataset.zip`, for example to `/exercise2/dataset`
-1. Make a copy of `.env.template` and rename it to `.env`. Then supply your credentials and specify where your folders should be.
+1. Extract `dataset.zip`, for example to `/Data`
+
+### Environment variables
+
+Make a copy of the `.env-template` file and rename it `.env`
+
+1. Supply it with credentials. These will be used both when setting up the
+   database and when accessing it.
+2. Specify where you placed the dataset `DATASET_PATH` should point to the parent directory of `/000`, `/001` etc.
 
 ## Running queries
 
