@@ -44,8 +44,9 @@ Make a copy of the `.env-template` file and rename it `.env`
 
 ## Running queries
 
-The data insertion and queries can be run with `main.py`.
-Use `py main.py --help` for more detailed instructions.
+Before running queries, start the database container with `docker-compose up`.
+The data insertion and querying can then be by calling `main.py` from a separate terminal.
+Run `py main.py --help` for more detailed instructions.
 
 ## Code style
 
