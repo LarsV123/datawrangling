@@ -39,6 +39,7 @@ def run_query(db: Connector, query: int):
         tqdm.write(f"Invalid query specified: {query}")
 
 
+# Total time elapsed: 0.02 seconds
 def task0(db: Connector):
     task = """Task 0: 
     Show a sample of the database by fetching the first 10 rows from each table.
@@ -76,6 +77,7 @@ def task0(db: Connector):
     )
 
 
+# Total time elapsed: 0.48 seconds
 def task1(db: Connector):
     task = """Task 1:
     How many users, activities and trackpoints are there in the dataset
@@ -98,6 +100,7 @@ def task1(db: Connector):
     print(tabulate(counts, headers="keys"))
 
 
+# Total time elapsed: 0.04 seconds
 def task2(db: Connector):
     task = """Task 2:
     Find the average, minimum and maximum number of activities per user.
@@ -118,6 +121,7 @@ def task2(db: Connector):
         print(f"{func}: {round(data, 2)}")
 
 
+# Total time elapsed: 0.01 seconds
 def task3(db: Connector):
     task = """Task 3:
     Find the top 10 users with the highest number of activities.
@@ -136,6 +140,7 @@ def task3(db: Connector):
     print(tabulate(data, headers=["User", "Activities"]))
 
 
+# Total time elapsed: 0.02 seconds
 def task4(db: Connector):
     task = """Task 4:
     Find out how many activities each user has which start on one day
@@ -160,6 +165,7 @@ def task4(db: Connector):
     print(tabulate(data, headers=["User", "Activities"]))
 
 
+# Total time elapsed: 0.02 seconds
 def task5(db: Connector):
     task = """Task 5:
     Find activities that are registered multiple times. You should find the
@@ -180,6 +186,7 @@ def task5(db: Connector):
     print(tabulate(data, headers=["User", "Start", "End", "Duplicates"]))
 
 
+# Total time elapsed: 794.34 seconds
 def task6(db: Connector):
     task = """Task 6:
     Find all users which have been close to each other in time
@@ -263,6 +270,7 @@ def task6(db: Connector):
         print(f"User {key} has met the following {len(value)} user(s): {value}")
 
 
+# Total time elapsed: 0.02 seconds
 def task7(db: Connector):
     task = """Task 7:
     Find all users who have never taken a taxi.
@@ -288,6 +296,7 @@ def task7(db: Connector):
     print(tabulate(data, headers=["User"]))
 
 
+# Total time elapsed: 0.02 seconds
 def task8(db: Connector):
     task = """Task 8:
     Find all types of transportation modes and count how many distinct 
@@ -308,6 +317,7 @@ def task8(db: Connector):
     print(tabulate(data, headers=["Transportation mode", "Users"]))
 
 
+# Total time elapsed: 0.04 seconds
 def task9(db: Connector):
     task = """Task 9:
     a) Find the year and month with the most activities.
@@ -368,6 +378,7 @@ def task9(db: Connector):
     print(tabulate(results, headers=["User", "Activities", "Hours"]))
 
 
+# Total time elapsed: 19.61 seconds
 def task10(db: Connector):
     task = """Task 10:
     Find the total distance (in km) walked in 2008, by user with id=112.
@@ -412,6 +423,7 @@ def task10(db: Connector):
     print(f"User 112 walked {round(total_distance, 2)} km in 2008")
 
 
+# Total time elapsed: 8.08 seconds
 def task11(db: Connector):
     task = """Task 11:
     Find the top 20 users who have gained the most altitude meters.
@@ -450,6 +462,7 @@ def task11(db: Connector):
     print(tabulate(sorted_users[:20], headers=["User", "Altitude gained (meters)"]))
 
 
+# Total time elapsed: 69.68 seconds
 def task12(db: Connector):
     task = """Task 12:
     Find all users who have invalid activities, and the number of invalid
