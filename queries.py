@@ -92,6 +92,7 @@ def task1(db: Connector):
         query = f"SELECT COUNT(*) FROM {table}"
         db.cursor.execute(query)
         count = db.cursor.fetchone()[0]
+        db.connection.commit()
         item["Entries"] = count
         counts.append(item)
     print(tabulate(counts, headers="keys"))
@@ -113,6 +114,7 @@ def task2(db: Connector):
         query = f"""SELECT {func}(nested.count) FROM ({inner_query}) AS nested;"""
         db.cursor.execute(query)
         data = db.cursor.fetchone()[0]
+        db.connection.commit()
         print(f"{func}: {round(data, 2)}")
 
 
@@ -130,6 +132,7 @@ def task3(db: Connector):
     """
     db.cursor.execute(query)
     data = db.cursor.fetchall()
+    db.connection.commit()
     print(tabulate(data, headers=["User", "Activities"]))
 
 
@@ -153,6 +156,7 @@ def task4(db: Connector):
     """
     db.cursor.execute(query)
     data = db.cursor.fetchall()
+    db.connection.commit()
     print(tabulate(data, headers=["User", "Activities"]))
 
 
@@ -172,6 +176,7 @@ def task5(db: Connector):
 
     db.cursor.execute(query)
     data = db.cursor.fetchall()
+    db.connection.commit()
     print(tabulate(data, headers=["User", "Start", "End", "Duplicates"]))
 
 
@@ -185,6 +190,7 @@ def task6(db: Connector):
     get_count = f"SELECT COUNT(*) FROM trackpoints"
     db.cursor.execute(get_count)
     trackpoint_count = db.cursor.fetchone()[0]
+    db.connection.commit()
     progress_bar = tqdm(total=trackpoint_count)
 
     get_trackpoints = f"""
@@ -248,6 +254,7 @@ def task6(db: Connector):
                 users[next_point[0]].add(current_point[0])
 
     # Finally done!
+    db.connection.commit()
     progress_bar.update(1)
     progress_bar.close()
     print()
@@ -277,6 +284,7 @@ def task7(db: Connector):
     """
     db.cursor.execute(query)
     data = db.cursor.fetchall()
+    db.connection.commit()
     print(tabulate(data, headers=["User"]))
 
 
@@ -296,6 +304,7 @@ def task8(db: Connector):
     """
     db.cursor.execute(query)
     data = db.cursor.fetchall()
+    db.connection.commit()
     print(tabulate(data, headers=["Transportation mode", "Users"]))
 
 
@@ -318,6 +327,7 @@ def task9(db: Connector):
     """
     db.cursor.execute(get_top_month)
     data = db.cursor.fetchone()
+    db.connection.commit()
     date: datetime = data[0]
     year = date.year
     month = date.month
@@ -337,6 +347,7 @@ def task9(db: Connector):
     """
     db.cursor.execute(get_count_activities)
     users = db.cursor.fetchall()
+    db.connection.commit()
 
     results = []
     for user in users:
@@ -350,6 +361,7 @@ def task9(db: Connector):
         """
         db.cursor.execute(get_time)
         seconds = db.cursor.fetchone()[0]
+        db.connection.commit()
         hours = round(seconds / (60 * 60), 2)
         results.append([username, count, hours])
 
@@ -370,6 +382,7 @@ def task10(db: Connector):
     """
     db.cursor.execute(get_activities)
     activities = db.cursor.fetchall()
+    db.connection.commit()
 
     # For each activity, find all trackpoints
     get_trackpoints = """
@@ -384,6 +397,7 @@ def task10(db: Connector):
         activity_id = activity[0]
         db.cursor.execute(get_trackpoints % activity_id)
         trackpoints = db.cursor.fetchall()
+        db.connection.commit()
 
         activity_distance = 0
         for j in range(1, len(trackpoints)):
@@ -425,6 +439,7 @@ def task11(db: Connector):
 
     db.cursor.execute(query)
     result = db.cursor.fetchall()
+    db.connection.commit()
     users = defaultdict(lambda: 0)
     for row in result:
         distance = float(row[2]) * 0.3048  # Convert feet => meter
@@ -489,6 +504,7 @@ def task12(db: Connector):
                 if minutes > 5:
                     count_per_user[user_id] += 1
                     is_invalid_activity = True
+    db.connection.commit()
     print(tabulate(count_per_user.items(), headers=["User", "Invalid activities"]))
 
 
